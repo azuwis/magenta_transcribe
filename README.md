@@ -1,4 +1,4 @@
-## Simple GUI and Packaging for TensorFlow Magenta Onsets and Frames Piano Transcription Tool
+## Simple GUI for Onsets and Frames Piano Transcription Tool
 
 [Onsets and Frames][1] is a new machine learning model for automatic polyphonic
 piano music transcription from [TensorFlow][2] [Magenta][3] research project.
@@ -7,6 +7,15 @@ Using this model, we can convert raw recordings of solo piano performances into
 MIDI.
 
 This is a simple GUI and packaging for Windows.
+
+### Requirement
+
+Windows 64bit with at least 8G memory, only Windows 10 is tested.
+
+TensorFlow works on Linux, mac OS, Windows, but only Windows package is provided
+here.
+
+If you use other OS, follow the [install][5] and [usage][6] guide.
 
 ### How to use
 
@@ -21,3 +30,5 @@ This is a simple GUI and packaging for Windows.
 [2]: https://www.tensorflow.org/
 [3]: https://magenta.tensorflow.org/
 [4]: https://github.com/azuwis/magenta_transcribe/releases/download/v0.1/MagentaTranscribe.zip
+[5]: https://www.tensorflow.org/install/pip
+[6]: https://github.com/tensorflow/magenta/tree/master/magenta/models/onsets_frames_transcription
