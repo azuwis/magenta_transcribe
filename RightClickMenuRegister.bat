@@ -6,7 +6,7 @@ for /f "delims=" %%i in ('type "scripts\RightClickMenuRegister.reg.in" ^& break 
     >>"scripts\RightClickMenuRegister.reg" echo(!line:@REPLACE@=%dir:\=\\%!
     endlocal
 )
-regedit /S %~dp0scripts\RightClickMenuRegister.reg
+regedit /S "%~dp0scripts\RightClickMenuRegister.reg"
 IF %0 == "%~0" (
 echo Done.
 echo Press any key to exit...
