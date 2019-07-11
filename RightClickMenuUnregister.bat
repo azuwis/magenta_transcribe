@@ -1,7 +1,8 @@
 @echo off
+echo Unregister right click menu for .wav files.
 regedit /S "%~dp0scripts\RightClickMenuUnregister.reg"
-IF %0 == "%~0" (
 echo Done.
+IF %0 == "%~0" (
 echo Press any key to exit...
 pause >nul
 )
