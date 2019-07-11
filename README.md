@@ -15,7 +15,7 @@ Windows 64bit with at least 8G memory, only Windows 10 is tested.
 TensorFlow works on Linux, mac OS, Windows, but only Windows package is provided
 here.
 
-If you use other OS, follow the [install][5] and [usage][6] guide.
+If you use other OS, follow those [install][5] and [usage][6] guides instead.
 
 ### How to use
 
@@ -25,6 +25,9 @@ If you use other OS, follow the [install][5] and [usage][6] guide.
 4. Run `Transcribe.bat` in `MagentaTranscribe` directory
 5. Choose wav files, multiple selection is supported
 6. Result MIDI files are in the same directory as the wav files
+
+If you want right click menu for wav files, run `RightClickMenuRegister.bat`,
+then you can right click a wav file, and choose `Magenta Transcribe`.
 
 [1]: https://magenta.tensorflow.org/onsets-frames
 [2]: https://www.tensorflow.org/
