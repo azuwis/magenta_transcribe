@@ -32,6 +32,6 @@ then you can right click a wav file, and choose `Magenta Transcribe`.
 [1]: https://magenta.tensorflow.org/onsets-frames
 [2]: https://www.tensorflow.org/
 [3]: https://magenta.tensorflow.org/
-[4]: https://github.com/azuwis/magenta_transcribe/releases/download/v0.1/MagentaTranscribe.zip
+[4]: https://github.com/azuwis/magenta_transcribe/releases/download/v0.2/MagentaTranscribe-v0.2.zip
 [5]: https://www.tensorflow.org/install/pip
 [6]: https://github.com/tensorflow/magenta/tree/master/magenta/models/onsets_frames_transcription
