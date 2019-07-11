@@ -84,10 +84,11 @@ if (-not (Test-Path dist\MagentaTranscribe\python-3.6.8.amd64\Scripts\onsets_fra
     & dist\MagentaTranscribe\scripts\python.bat -m pip install magenta
 }
 cp README.md dist\MagentaTranscribe\README.txt
-cp Transcribe.bat dist\MagentaTranscribe
+cp Transcribe.bat, RightClickMenuRegister.bat, RightClickMenuUnregister.bat dist\MagentaTranscribe
+cp RightClickMenuRegister.reg.in, RightClickMenuUnregister.reg dist\MagentaTranscribe\scripts
 cp transcribe.py dist\MagentaTranscribe\python-3.6.8.amd64\Scripts
 
-rm -ErrorAction Ignore "dist\MagentaTranscribe\IPython Qt Console.exe", "dist\MagentaTranscribe\DLE (Python GUI).exe", "dist\MagentaTranscribe\IDLEX.exe", "dist\MagentaTranscribe\Jupyter Lab.exe", "dist\MagentaTranscribe\Jupyter Notebook.exe", "dist\MagentaTranscribe\Pyzo.exe", "dist\MagentaTranscribe\Qt Designer.exe", "dist\MagentaTranscribe\Qt Linguist.exe", "dist\MagentaTranscribe\Spyder.exe", "dist\MagentaTranscribe\Spyder reset.exe", "dist\MagentaTranscribe\WinPython Control Panel.exe", "dist\MagentaTranscribe\unins000.exe", "dist\MagentaTranscribe\unins000.dat"
+rm -ErrorAction Ignore "dist\MagentaTranscribe\IPython Qt Console.exe", "dist\MagentaTranscribe\DLE (Python GUI).exe", "dist\MagentaTranscribe\IDLEX.exe", "dist\MagentaTranscribe\Jupyter Lab.exe", "dist\MagentaTranscribe\Jupyter Notebook.exe", "dist\MagentaTranscribe\Pyzo.exe", "dist\MagentaTranscribe\Qt Designer.exe", "dist\MagentaTranscribe\Qt Linguist.exe", "dist\MagentaTranscribe\Spyder.exe", "dist\MagentaTranscribe\Spyder reset.exe", "dist\MagentaTranscribe\WinPython Control Panel.exe", "dist\MagentaTranscribe\unins000.exe", "dist\MagentaTranscribe\unins000.dat" "dist\MagentaTranscribe\scripts\RightClickMenuRegister.reg"
 rm -r -ErrorAction Ignore dist\MagentaTranscribe\notebooks, dist\MagentaTranscribe\t, dist\MagentaTranscribe\settings\.spyder-py3
 
 if (-not (Test-Path dist\MagentaTranscribe.zip)) {
