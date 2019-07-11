@@ -5,6 +5,33 @@ function MakeDir {
     }
 }
 
+function Registry {
+    param($Path,$Name,$Value,$Type)
+    $Json = (ConvertTo-Json $Value)
+    $command = ""
+    if (-not (Test-Path $Path)) {
+        $command = "New-Item `"$Path`" -Force | New-ItemProperty -Name `"$Name`" -PropertyType $Type -Force -Value "
+    } elseif (-not ((ConvertTo-Json (Get-ItemProperty $Path | Select-Object -ExpandProperty $Name -ErrorAction Ignore)) -eq $Json)) {
+        $command = "Set-ItemProperty `"$Path`" -Name `"$Name`" -Type $Type -Force -Value "
+    }
+    if (-not ($command -eq "")) {
+        Write-Host "Registry: $Path!$Name -> $Value"
+        if ($Type -eq "String") {
+            $command += "`"$Value`""
+        } else {
+            $command += "(ConvertFrom-Json `"$Json`")"
+        }
+        RunAsAdmin $command
+    }
+}
+
+function RunAsAdmin {
+    param($Command)
+    $bytes = [System.Text.Encoding]::Unicode.GetBytes($Command)
+    $encodedCommand = [Convert]::ToBase64String($bytes)
+    Start-Process powershell -Verb runAs -ArgumentList "-EncodedCommand $encodedCommand"
+}
+
 function UnpackUrl {
     param($Url,$File,$UnpackDir,$TestPath)
     if (-not $File) {
@@ -31,6 +58,9 @@ function UnpackUrl {
         }
     }
 }
+
+# disable bits branchcache https://powershell.org/forums/topic/bits-transfer-with-github/
+Registry -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\BITS -Name DisableBranchCache -Value 1 -Type DWord
 
 MakeDir dist\downloads
 MakeDir dist\MagentaTranscribe
@@ -65,4 +95,5 @@ if (-not (Test-Path dist\MagentaTranscribe.zip)) {
     [IO.Compression.ZipFile]::CreateFromDirectory([IO.Path]::Combine($pwd, "dist\MagentaTranscribe"), [IO.Path]::Combine($pwd, "dist\MagentaTranscribe.zip"))
 }
 
+Write-Host
 Read-Host "Done, press enter to exit"
