@@ -49,4 +49,4 @@ A: Make sure the CPU support [AVX instructions][4], try another computer with ne
 [5]: https://www.tensorflow.org/install/pip
 [6]: https://github.com/tensorflow/magenta/tree/master/magenta/models/onsets_frames_transcription
 [7]: https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
-[8]: https://github.com/azuwis/magenta_transcribe/releases/download/v0.2/MagentaTranscribe-v0.2.zip
+[8]: https://github.com/azuwis/magenta_transcribe/releases/download/v0.3/MagentaTranscribe-v0.3.zip

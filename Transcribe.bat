@@ -1,5 +1,5 @@
 @echo off
-call "%~dp0scripts\env.bat"
+call "%~dp0python\scripts\env.bat"
 "%WINPYDIR%\python.exe" "%WINPYDIR%\Scripts\transcribe.py" %*
 IF %0 == "%~0" (
 echo.

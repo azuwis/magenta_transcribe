@@ -53,7 +53,7 @@ function UnpackUrl {
                 $shell.Namespace([IO.Path]::Combine($pwd, $UnpackDir)).CopyHere($shell.Namespace([IO.Path]::Combine($pwd, $Output)).Items())
             }
             '.exe' {
-                Start-Process $output -ArgumentList "/SILENT /NORESTART /DIR=$UnpackDir"
+                Start-Process $output -Wait -ArgumentList "-y -o$UnpackDir"
             }
         }
     }
@@ -67,29 +67,46 @@ MakeDir dist\MagentaTranscribe
 
 UnpackUrl -Url https://storage.googleapis.com/magentadata/models/onsets_frames_transcription/maestro_checkpoint.zip -UnpackDir dist\MagentaTranscribe -TestPath dist\MagentaTranscribe\train
 
-UnpackUrl -Url https://github.com/winpython/winpython/releases/download/1.11.20190223/Winpython64-3.6.8.0Zero.exe -UnpackDir dist\MagentaTranscribe -TestPath dist\MagentaTranscribe\settings
-
-if (-not (Test-Path dist\MagentaTranscribe\settings)) {
-    Write-Host
-    Read-Host "Wait for WinPython install finish, and press enter to continue"
+UnpackUrl -Url https://github.com/winpython/winpython/releases/download/2.3.20200319/Winpython64-3.7.7.0dot.exe -UnpackDir dist\MagentaTranscribe -TestPath dist\MagentaTranscribe\python
+if (-not (Test-Path dist\MagentaTranscribe\python)) {
+    mv dist\MagentaTranscribe\WPy64-3770 dist\MagentaTranscribe\python
 }
+$ScriptsDir="dist\MagentaTranscribe\python\python-3.7.7.amd64\Scripts"
 
-UnpackUrl -Url https://cfhcable.dl.sourceforge.net/project/sox/sox/14.4.2/sox-14.4.2-win32.zip -UnpackDir dist -TestPath dist\MagentaTranscribe\python-3.6.8.amd64\Scripts\sox.exe
+UnpackUrl -Url https://cfhcable.dl.sourceforge.net/project/sox/sox/14.4.2/sox-14.4.2-win32.zip -UnpackDir dist -TestPath $ScriptsDir\sox.exe
 if (Test-Path dist\sox-14.4.2) {
-    mv dist\sox-14.4.2\*.exe, dist\sox-14.4.2\*.dll dist\MagentaTranscribe\python-3.6.8.amd64\Scripts
+    mv dist\sox-14.4.2\*.exe, dist\sox-14.4.2\*.dll $ScriptsDir
     rm -r dist\sox-14.4.2
 }
 
-if (-not (Test-Path dist\MagentaTranscribe\python-3.6.8.amd64\Scripts\onsets_frames_transcription_transcribe.exe)) {
-    & dist\MagentaTranscribe\scripts\python.bat -m pip install magenta
+if (-not (Test-Path $ScriptsDir\onsets_frames_transcription_transcribe.exe)) {
+    & dist\MagentaTranscribe\python\scripts\python.bat -m pip install magenta
 }
 cp README.md dist\MagentaTranscribe\README.txt
 cp Transcribe.bat, RightClickMenuRegister.bat, RightClickMenuUnregister.bat dist\MagentaTranscribe
-cp RightClickMenuRegister.reg.in, RightClickMenuUnregister.reg dist\MagentaTranscribe\scripts
-cp transcribe.py dist\MagentaTranscribe\python-3.6.8.amd64\Scripts
+cp RightClickMenuRegister.reg.in, RightClickMenuUnregister.reg dist\MagentaTranscribe\python\scripts
+cp transcribe.py $ScriptsDir
 
-rm -ErrorAction Ignore "dist\MagentaTranscribe\IPython Qt Console.exe", "dist\MagentaTranscribe\DLE (Python GUI).exe", "dist\MagentaTranscribe\IDLEX.exe", "dist\MagentaTranscribe\Jupyter Lab.exe", "dist\MagentaTranscribe\Jupyter Notebook.exe", "dist\MagentaTranscribe\Pyzo.exe", "dist\MagentaTranscribe\Qt Designer.exe", "dist\MagentaTranscribe\Qt Linguist.exe", "dist\MagentaTranscribe\Spyder.exe", "dist\MagentaTranscribe\Spyder reset.exe", "dist\MagentaTranscribe\WinPython Control Panel.exe", "dist\MagentaTranscribe\unins000.exe", "dist\MagentaTranscribe\unins000.dat", "dist\MagentaTranscribe\scripts\RightClickMenuRegister.reg"
-rm -r -ErrorAction Ignore dist\MagentaTranscribe\notebooks, dist\MagentaTranscribe\t, dist\MagentaTranscribe\settings\.spyder-py3
+rm -ErrorAction Ignore `
+  "dist\MagentaTranscribe\python\IDLE (Python GUI).exe", `
+  "dist\MagentaTranscribe\python\IDLEX.exe", `
+  "dist\MagentaTranscribe\python\IPython Qt Console.exe", `
+  "dist\MagentaTranscribe\python\Jupyter Lab.exe", `
+  "dist\MagentaTranscribe\python\Jupyter Notebook.exe", `
+  "dist\MagentaTranscribe\python\Pyzo.exe", `
+  "dist\MagentaTranscribe\python\Qt Designer.exe", `
+  "dist\MagentaTranscribe\python\Qt Linguist.exe", `
+  "dist\MagentaTranscribe\python\Spyder reset.exe", `
+  "dist\MagentaTranscribe\python\Spyder.exe", `
+  "dist\MagentaTranscribe\python\VS Code.exe", `
+  "dist\MagentaTranscribe\python\WinPython Control Panel.exe", `
+  "dist\MagentaTranscribe\python\unins000.exe", `
+  "dist\MagentaTranscribe\python\unins000.dat", `
+  "dist\MagentaTranscribe\python\scripts\RightClickMenuRegister.reg"
+rm -r -ErrorAction Ignore `
+  dist\MagentaTranscribe\python\notebooks, `
+  dist\MagentaTranscribe\python\t, `
+  dist\MagentaTranscribe\python\settings\.spyder-py3
 
 if (-not (Test-Path dist\MagentaTranscribe.zip)) {
     Add-Type -assembly "system.io.compression.filesystem"
