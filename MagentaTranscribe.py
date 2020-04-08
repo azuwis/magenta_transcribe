@@ -17,10 +17,23 @@ if __name__ == '__main__':
         argv = argv + root.tk.splitlist(files)
 
     if have_args or files:
+        script_dir = os.path.dirname(sys.argv[0])
+        os.environ['PATH'] += os.pathsep + os.path.abspath(os.path.join(script_dir, 'sox'))
+
+        from tensorflow.python.util import deprecation
+        deprecation._PRINT_DEPRECATION_WARNINGS = False
+        import logging
+        logging.getLogger('tensorflow').propagate = False
+       
         import tensorflow.compat.v1 as tf
+        tf.logging.set_verbosity(tf.logging.ERROR)
         from magenta.models.onsets_frames_transcription.onsets_frames_transcription_transcribe import main, FLAGS
 
-        model_dir = os.path.join(os.path.dirname(__file__), '../../../train')
+        model_dir = os.path.join(script_dir, 'train')
         FLAGS.model_dir = model_dir
 
-        tf.app.run(main = main, argv = argv)
+        def app(argv):
+            main(argv)
+            input("\nPress Enter to exit...")
+
+        tf.app.run(main = app, argv = argv)

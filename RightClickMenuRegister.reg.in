@@ -5,4 +5,4 @@ Windows Registry Editor Version 5.00
 "AppliesTo"=".wav"
 
 [HKEY_CLASSES_ROOT\*\shell\MagentaTranscribe\command]
-@="\"@REPLACE@Transcribe.bat\" \"%1\""
+@="\"@REPLACE@MagentaTranscribe.exe\" \"%1\""

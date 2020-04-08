@@ -1,6 +1,6 @@
 @echo off
 echo Unregister right click menu for .wav files.
-regedit /S "%~dp0python\scripts\RightClickMenuUnregister.reg"
+regedit /S "%~dp0reg\RightClickMenuUnregister.reg"
 echo Done.
 IF %0 == "%~0" (
 echo Press any key to exit...
