@@ -65,10 +65,10 @@ Registry -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\BITS -Name DisableBranc
 MakeDir build\
 MakeDir dist\downloads\
 
-UnpackUrl -Url https://github.com/winpython/winpython/releases/download/2.3.20200319/Winpython64-3.7.7.0dot.exe `
+UnpackUrl -Url https://github.com/winpython/winpython/releases/download/2.3.20200530/Winpython64-3.7.7.1dot.exe `
     -UnpackDir build\ -TestPath build\python\
 if (-not (Test-Path build\python\)) {
-    mv build\WPy64-3770\ build\python\
+    mv build\WPy64-3771\ build\python\
 }
 
 $Python="build\python\scripts\python.bat"
@@ -78,14 +78,14 @@ if (-not (Test-Path $ScriptsDir\onsets_frames_transcription_transcribe.exe)) {
     & $Python -m pip install magenta
 }
 
-$FixFile="$ScriptsDir\..\Lib\site-packages\tensorflow_core\_api\v1\compat\v2\summary\__init__.py"
-if (-not (Test-Path "${FixFile}.orig")) {
-    cp $Fixfile "${Fixfile}.orig"
-    Get-Content "${FixFile}.orig" | Select-String -pattern "experimental" -notmatch | Out-File -encoding UTF8 $FixFile
-}
+#$FixFile="$ScriptsDir\..\Lib\site-packages\tensorflow_core\_api\v1\compat\v2\summary\__init__.py"
+#if (-not (Test-Path "${FixFile}.orig")) {
+#    cp $Fixfile "${Fixfile}.orig"
+#    Get-Content "${FixFile}.orig" | Select-String -pattern "experimental" -notmatch | Out-File -encoding UTF8 $FixFile
+#}
 
 if (-not (Test-Path $ScriptsDir\pyinstaller.exe)) {
-    & $Python -m pip install https://github.com/pyinstaller/pyinstaller/tarball/f877f3eb8af1e0fc11e3c73eb3eaf940871164ba
+    & $Python -m pip install https://github.com/pyinstaller/pyinstaller/tarball/develop
 }
 
 & $Python -m pip freeze | Out-File -encoding UTF8 pip.txt
@@ -100,18 +100,13 @@ if (-not (Test-Path $ScriptsDir\pyinstaller.exe)) {
 #--upx-exclude msvcp140.dll `
 
 if (-not (Test-Path build\dist\MagentaTranscribe\)) {
-    cp MagentaTranscribe.py build\
+    cp MagentaTranscribe.py, MagentaTranscribe.spec build\
     & $Python $ScriptsDir\pyinstaller.exe `
+    --noconfirm `
     --distpath build\dist\ `
     --workpath build\build\ `
     --specpath build\ `
-    --hidden-import=tensorflow `
-    --hidden-import=tensorflow_core.python `
-    --hidden-import=sklearn.utils._cython_blas `
-    --hidden-import=sklearn.neighbors.typedefs `
-    --hidden-import=sklearn.neighbors.quad_tree `
-    --hidden-import=sklearn.tree._utils `
-    build\MagentaTranscribe.py
+    build\MagentaTranscribe.spec
 }
 
 UnpackUrl -Url https://storage.googleapis.com/magentadata/models/onsets_frames_transcription/maestro_checkpoint.zip `

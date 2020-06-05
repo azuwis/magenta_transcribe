@@ -22,7 +22,7 @@ If you use other OS, follow those [install][4] and [usage][5] guides instead.
 
 ### How to use
 
-1. If using Windows 7 or Windows 8, download [Microsoft Visual C++ Redistributable for Visual Studio 2017][6] `vc_redist_x64.exe` and install
+1. Download [Microsoft Visual C++ Redistributable for Visual Studio 2015, 2017 and 2019][6] `vc_redist_x64.exe` and install
 2. Download and unpack [MagentaTranscribe.zip][7]
 3. Convert audio to wav format
 4. Close other apps to free memory, need at least 4G free memory
@@ -39,9 +39,15 @@ then you can right click a wav file, and choose `Magenta Transcribe`.
 [4]: https://www.tensorflow.org/install/pip
 [5]: https://github.com/tensorflow/magenta/tree/master/magenta/models/onsets_frames_transcription
 [6]: https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
-[7]: https://github.com/azuwis/magenta_transcribe/releases/download/v0.4/MagentaTranscribe-v0.4.zip
+[7]: https://github.com/azuwis/magenta_transcribe/releases/download/v0.5/MagentaTranscribe-v0.5.zip
 
 ### Changelog
+
+#### [0.5] - 2020-06-15
+
+* Update magenta to 2.0.1
+* Update python to 3.7.7.1
+* Update pyinstaller to git HEAD
 
 #### [0.4] - 2020-04-10
 

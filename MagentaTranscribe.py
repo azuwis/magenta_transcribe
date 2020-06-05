@@ -24,7 +24,7 @@ if __name__ == '__main__':
         deprecation._PRINT_DEPRECATION_WARNINGS = False
         import logging
         logging.getLogger('tensorflow').propagate = False
-       
+
         import tensorflow.compat.v1 as tf
         tf.logging.set_verbosity(tf.logging.ERROR)
         from magenta.models.onsets_frames_transcription.onsets_frames_transcription_transcribe import main, FLAGS
