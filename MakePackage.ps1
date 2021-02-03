@@ -36,8 +36,8 @@ function UnpackUrl {
     param($Url,$File,$UnpackDir,$TestPath)
     if (-not $File) {
         $File = $Url.Substring($Url.LastIndexOf("/") + 1)
-        $Output = "dist\downloads\$File"
     }
+    $Output = "dist\downloads\$File"
     if (-not $TestPath) {
         $TestPath = $UnpackDir
     }
